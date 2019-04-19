@@ -1,5 +1,6 @@
 # WikiSearch
 Wiki Search is a bootleg wikipedia
+I have links and the contents working but i cant save the button on the history. SUbmitted in the 1hr extension
 
 
 ## Tech Requirements
