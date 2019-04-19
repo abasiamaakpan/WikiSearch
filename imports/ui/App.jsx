@@ -13,7 +13,9 @@ class App extends Component {
       //comments:[],
       //wiki: "",
       search: "",
-      links: []
+      links: [],
+      content:""
+
 
       //err:""
     };
@@ -87,8 +89,17 @@ class App extends Component {
           />
         </label>
 
+        <h1> Links</h1>
         {this.renderWiki()}
+
+        <h1> Content</h1>
+
+
+        <h1> Publications</h1>
+
+
       </div>
+
     );
   }
 }
