@@ -76,7 +76,8 @@ class App extends Component {
   renderLinks() {
     return this.state.links.map((p,i) => 
       <button key={i}
-          value={p["*"]}>
+          value={p["*"]}
+          onClick={this.onClick.bind(this)}>
         {p["*"]}
       </button>);
   }
