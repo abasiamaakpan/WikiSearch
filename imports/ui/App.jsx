@@ -14,31 +14,36 @@ class App extends Component {
       //wiki: "",
       search: "",
       links: [],
-      content:""
+      content:"",
+      publications:"",
+      _html:""
 
 
       //err:""
     };
   }
-  //move to component did mount to inputs event handler
 
-  /*componentDidMount() {
-
-  }*./
-
-
-
-  renderWiki() {
-    return this.state.links.map(m =>
-     <div>
-     {m.links}
-     </div> );
-  }*/
 
   onChange(evt) {
     this.setState({
-      search: evt.target.value
+      search: evt.target.value,
+      history: evt.target.value
     });
+  }
+
+  onClick(event){
+    event.preventDefault();
+    Meteor.call("wiki.article", event.target.value, (err, response) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        console.log("got data", response);
+        this.setState({
+          links: response.links,
+          content: response.text["*"],
+        });
+      });
   }
 
   onKey(evt) {
@@ -50,9 +55,11 @@ class App extends Component {
         }
         console.log("got data", response);
         this.setState({
-          links: response.links
+          links: response.links,
+          content: response.text["*"],
         });
       });
+
     }
   }
 
@@ -64,12 +71,27 @@ class App extends Component {
      
   }*/
 
-  renderWiki() {
+
+
+  renderLinks() {
     return this.state.links.map((p,i) => 
-      <button key={i}>
+      <button key={i}
+          value={p["*"]}>
         {p["*"]}
       </button>);
   }
+
+  renderClickedLinks(){
+
+  }
+
+ /* renderContent(){
+    return this.state.content.map((p,j) => 
+      <button key={j}>
+        {p.content}
+      </button>);
+  }*/
+
 
   render() {
     return (
@@ -89,11 +111,17 @@ class App extends Component {
           />
         </label>
 
+        <h1>History</h1>
+
+
         <h1> Links</h1>
-        {this.renderWiki()}
+        {this.renderLinks()}
 
         <h1> Content</h1>
-
+        <span dangerouslySetInnerHTML={
+          {__html: this.state.content}}
+               onClick={this.onClick.bind(this)}>
+        </span>
 
         <h1> Publications</h1>
 
