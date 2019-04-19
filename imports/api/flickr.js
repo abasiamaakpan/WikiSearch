@@ -17,7 +17,9 @@ if (Meteor.isServer) {
 
     Meteor.methods({
         "wiki.article"(query) {
+            console.log("Showing query", query);
             return new Promise((result, reject) => {
+
                 wikipedia.page.data(query, { content: true }, function(
                     response
                 ) {
